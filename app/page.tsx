@@ -42,15 +42,21 @@ export default function Home() {
   href="https://calendly.com/camilpieplu/30min"
   target="_blank"
   rel="noopener noreferrer"
+  onClick={() => {
+  (window as any).gtag?.('event', 'book_call_click')
+}}
   className="rounded-full bg-[#4F6D8A] px-8 py-4 text-center text-sm font-semibold text-white transition hover:bg-[#5B7B99]"
 >
   Réserver un appel
 </a>
 
           <a
-            href="#accompagnement"
-            className="rounded-full border border-[#2E3945] px-8 py-4 text-center text-sm font-semibold text-[#F5F1EA] transition hover:border-[#4F6D8A]"
-          >
+  href="#accompagnement"
+ onClick={() => {
+  (window as any).gtag?.('event', 'view_offer_click')
+}}
+  className="rounded-full border border-[#2E3945] px-8 py-4 text-center text-sm font-semibold text-[#F5F1EA] transition"
+>
             Voir l’accompagnement
           </a>
         </div>
