@@ -201,7 +201,7 @@ export default function Home() {
     rel="noopener noreferrer"
     className="rounded-full bg-[#4F6D8A] px-14 py-6 text-lg font-semibold text-white transition hover:bg-[#5B7B99]"
   >
-    Réserver un appel stratégique
+    Réserver un appel
   </a>
 </div>
 
