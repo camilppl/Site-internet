@@ -25,30 +25,35 @@ export default function Home() {
         {/* Contenu par dessus l'image */}
         <div className="relative z-10 flex flex-col min-h-screen px-6 pl-10 md:pl-16">
 
+        <div className="min-[1700px]:origin-top-left min-[1700px]:scale-[1.12]">
+
           {/* Navbar */}
-          <nav className="pt-6 pb-0">
-            <Image
-              src="/image/logo-cp.png.png"
-              alt="Camil Pieplu Coaching Premium"
-              width={170}
-              height={170}
-              className="h-auto w-24 opacity-95 md:w-32 lg:w-40 xl:w-52"
-            />
-          </nav>
+<nav className="pt-6 pb-0">
+  <Image
+    src="/image/logo-cp.png.png"
+    alt="Camil Pieplu Coaching Premium"
+    width={170}
+    height={170}
+    className="-translate-y-6 h-auto w-24 opacity-95 md:w-32 lg:w-40 xl:w-52"
+  />
+</nav>
 
           {/* Texte hero */}
           <div className="flex flex-col justify-start pt-8 md:pt-12 w-full max-w-[65%] pl-20 md:pl-32">
-            <p className="mb-6 text-base font-medium uppercase tracking-[0.22em] text-[#7E8B98]">
+            <p className="-mt-24 mb-6 text-base font-medium uppercase tracking-[0.22em] text-[#7E8B98]">
               Coach sportif premium · Lyon
             </p>
 
-            <h1 className="text-2xl font-semibold leading-tight md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl">
-              Un accompagnement sportif
-              <br />
-              pensé pour toi
-              <br />
-              et ton emploi du temps
-            </h1>
+            <h1
+  style={{ fontSize: 'clamp(1.8rem, 3.5vw, 4rem)' }}
+  className="max-w-5xl font-semibold leading-tight"
+>
+  Un accompagnement sportif
+  <br />
+  pensé pour toi
+  <br />
+  et ton emploi du temps
+</h1>
 
             <p className="mt-6 text-base leading-7 text-[#C7CED6] md:mt-8 md:text-lg md:leading-8">
               J&apos;aide les cadres et entrepreneurs à transformer et reprendre le contrôle
@@ -76,6 +81,7 @@ export default function Home() {
               >
                 Voir l&apos;accompagnement
               </a>
+              </div>
             </div>
           </div>
 
