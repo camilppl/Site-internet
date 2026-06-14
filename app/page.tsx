@@ -199,7 +199,7 @@ export default function Home() {
 
       <motion.section
   id="freins"
-  className="border-t border-[#E7E1D7] bg-[#F5F1EA] px-5 py-16 text-[#0B0D0F] md:px-12 md:py-24 lg:px-16 xl:px-20 lg:max-[1400px]:pt-10 lg:max-[1400px]:pb-12 md:max-lg:py-12"
+  className="border-t border-[#E7E1D7] bg-[#F5F1EA] px-5 py-16 text-[#0B0D0F] md:px-12 md:py-24 lg:px-16 xl:px-20 lg:max-[1400px]:pt-10 lg:max-[1400px]:pb-12 md:max-lg:py-12 [@media(min-width:1024px)_and_(max-height:850px)]:pt-8 [@media(min-width:1024px)_and_(max-height:850px)]:pb-10"
   initial={{ opacity: 0, y: 120, scale: 0.96 }}
   whileInView={{ opacity: 1, y: 0 }}
   transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
@@ -212,7 +212,7 @@ export default function Home() {
         Ce qui te freine
       </p>
 
-      <h2 className="text-3xl font-semibold leading-tight text-[#4F6D8A] md:text-4xl lg:text-5xl lg:max-[1400px]:text-[2.4rem] lg:max-[1400px]:leading-[1.15] max-[639px]:text-[1.55rem] max-[639px]:leading-[1.18]">
+      <h2 className="text-3xl font-semibold leading-tight text-[#4F6D8A] md:text-4xl lg:text-5xl lg:max-[1400px]:text-[2.4rem] lg:max-[1400px]:leading-[1.15] max-[639px]:text-[1.55rem] max-[639px]:leading-[1.18] [@media(min-width:1024px)_and_(max-height:850px)]:text-[2.15rem] [@media(min-width:1024px)_and_(max-height:850px)]:leading-[1.1]">
   <span className="block whitespace-nowrap">
     Tu veux te remettre en forme,
   </span>
@@ -221,7 +221,7 @@ export default function Home() {
   </span>
 </h2>
 
-      <div className="mx-auto mt-7 max-w-[620px] overflow-hidden rounded-3xl shadow-xl md:mt-9 lg:max-[1400px]:max-w-[520px] md:max-lg:max-w-[520px] md:max-lg:mt-6">
+      <div className="mx-auto mt-7 max-w-[620px] overflow-hidden rounded-3xl shadow-xl md:mt-9 lg:max-[1400px]:max-w-[520px] md:max-lg:max-w-[520px] md:max-lg:mt-6[@media(min-width:1200px)_and_(max-height:850px)]:mt-6 [@media(min-width:1200px)_and_(max-height:850px)]:max-w-[500px]">
   <Image
     src="/image/coaching-seance.jpg"
     alt="Camil en séance de coaching sportif"
@@ -233,7 +233,7 @@ export default function Home() {
     </div>
 
     {/* Partie droite */}
-   <div className="space-y-8 text-base leading-7 text-[#3A4652] md:space-y-10 md:text-lg md:leading-8 lg:max-[1400px]:space-y-6 lg:max-[1400px]:text-base lg:max-[1400px]:leading-7 lg:max-[1400px]:pt-[115px]">
+   <div className="space-y-8 text-base leading-7 text-[#3A4652] md:space-y-10 md:text-lg md:leading-8 lg:max-[1400px]:space-y-6 lg:max-[1400px]:text-base lg:max-[1400px]:leading-7 lg:max-[1400px]:pt-[115px][@media(min-width:1200px)_and_(max-height:850px)]:space-y-5 [@media(min-width:1200px)_and_(max-height:850px)]:text-base [@media(min-width:1200px)_and_(max-height:850px)]:leading-7 [@media(min-width:1200px)_and_(max-height:850px)]:pt-[80px]">
   <div className="border-l border-[#C9BFAF] pl-6">
     <p className="mb-2 text-base font-bold uppercase tracking-[0.18em] text-[#4F6D8A]">
       Manque de temps
@@ -288,7 +288,7 @@ export default function Home() {
     onClick={() => {
       (window as any).gtag?.("event", "view_reviews_click")
     }}
-    className="mt-8 inline-flex min-w-[260px] items-center justify-center rounded-full bg-[#4F6D8A] px-12 py-5 text-lg font-bold text-[#F5F1EA] shadow-xl shadow-black/15 transition hover:bg-[#0B0D0F] lg:max-[1400px]:mt-6 lg:max-[1400px]:min-w-[220px] lg:max-[1400px]:px-10 lg:max-[1400px]:py-4 lg:max-[1400px]:text-base"
+    className="mt-8 inline-flex min-w-[260px] items-center justify-center rounded-full bg-[#4F6D8A] px-12 py-5 text-lg font-bold text-[#F5F1EA] shadow-xl shadow-black/15 transition hover:bg-[#0B0D0F] lg:max-[1400px]:mt-6 lg:max-[1400px]:min-w-[220px] lg:max-[1400px]:px-10 lg:max-[1400px]:py-4 lg:max-[1400px]:text-base [@media(min-width:1024px)_and_(max-height:850px)]:mt-5 [@media(min-width:1024px)_and_(max-height:850px)]:min-w-[200px] [@media(min-width:1024px)_and_(max-height:850px)]:px-8 [@media(min-width:1024px)_and_(max-height:850px)]:py-3 [@media(min-width:1024px)_and_(max-height:850px)]:text-sm"
   >
     Voir leurs avis
   </a>
@@ -381,7 +381,7 @@ export default function Home() {
 
       <section
   id="accompagnement"
-  className="bg-[#080D0F] px-6 pb-20 pt-12 text-[#F5F1EA] md:pb-24 md:pt-14 lg:max-[1400px]:pt-8 lg:max-[1400px]:pb-6"
+  className="bg-[#080D0F] px-6 pb-20 pt-12 text-[#F5F1EA] md:pb-24 md:pt-14 lg:max-[1400px]:pt-8 lg:max-[1400px]:pb-6 [@media(min-width:1024px)_and_(max-height:850px)]:pt-4"
 >
         <div className="mx-auto max-w-6xl">
 
@@ -390,7 +390,7 @@ export default function Home() {
     Ton accompagnement
   </p>
 
-  <h2 className="text-4xl font-semibold leading-tight md:text-5xl lg:text-[3.4rem] lg:max-[1400px]:text-[2.55rem] lg:max-[1400px]:leading-[1.12]">
+  <h2 className="text-4xl font-semibold leading-tight md:text-5xl lg:text-[3.4rem] lg:max-[1400px]:text-[2.55rem] lg:max-[1400px]:leading-[1.12] [@media(min-width:1024px)_and_(max-height:850px)]:text-[2.25rem] [@media(min-width:1024px)_and_(max-height:850px)]:leading-[1.08]">
   Un accompagnement pensé
   <br />
   pour obtenir des résultats durables
@@ -441,18 +441,18 @@ export default function Home() {
   </div>
 </div>
 
-          <div className="mt-16">
-            <p className="mx-auto mt-16 max-w-4xl text-center text-xl font-semibold leading-8 text-[#C7CED6] md:text-2xl md:leading-9">
-  Mes accompagnements s’adressent aux personnes prêtes à avancer sérieusement,
-  avec une méthode adaptée à leur rythme et à leur quotidien.
-</p>
-            <div className="mt-10 flex justify-center lg:max-[1400px]:mt-6">
-              <a
-                href="https://calendly.com/camilpieplu/30min"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full rounded-full bg-[#4F6D8A] px-8 py-5 text-center text-base font-semibold text-white transition hover:bg-[#5B7B99] sm:w-auto md:px-14 md:py-6 md:text-lg lg:max-[1400px]:px-10 lg:max-[1400px]:py-4 lg:max-[1400px]:text-base"
-              >
+          <div className="mt-16 [@media(min-width:1024px)_and_(max-height:850px)]:mt-10">
+  <p className="mx-auto mt-16 max-w-4xl text-center text-xl font-semibold leading-8 text-[#C7CED6] md:text-2xl md:leading-9 [@media(min-width:1024px)_and_(max-height:850px)]:mt-10 [@media(min-width:1024px)_and_(max-height:850px)]:text-lg [@media(min-width:1024px)_and_(max-height:850px)]:leading-8">
+    Mes accompagnements s’adressent aux personnes prêtes à avancer sérieusement,
+    avec une méthode adaptée à leur rythme et à leur quotidien.
+  </p>
+            <div className="mt-10 flex justify-center lg:max-[1400px]:mt-6 [@media(min-width:1024px)_and_(max-height:850px)]:mt-5">
+  <a
+    href="https://calendly.com/camilpieplu/30min"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-full rounded-full bg-[#4F6D8A] px-8 py-5 text-center text-base font-semibold text-white transition hover:bg-[#5B7B99] sm:w-auto md:px-14 md:py-6 md:text-lg lg:max-[1400px]:px-10 lg:max-[1400px]:py-4 lg:max-[1400px]:text-base [@media(min-width:1024px)_and_(max-height:850px)]:px-8 [@media(min-width:1024px)_and_(max-height:850px)]:py-3 [@media(min-width:1024px)_and_(max-height:850px)]:text-sm"
+  >
                 Réserve un appel
               </a>
             </div>
