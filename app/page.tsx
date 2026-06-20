@@ -1,20 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image"
 
 const googleReviews = [
-   {
-    name: "Guillaume Somont",
-    date: "Il y a 1 semaine",
-    text: "Suivis plus que personnalisé, très à l’écoute du projet et des programmes voulu. Très pro franchement allez y les yeux fermé 👍",
-  },
-  {
-    name: "Kenzo Ronteau",
-    date: "Il y a 4 jours",
-    text: "Camil est un coach attentif, intéressé et sérieux, je recommande à 100%!",
-  },
   {
     name: "Camille Berne",
     date: "Il y a 1 semaine",
@@ -30,12 +20,134 @@ const googleReviews = [
     date: "Il y a 1 semaine",
     text: "Je recommande Camil à 100 %. Nous avons réalisé plusieurs séances avec ma fille Clémence, âgée de cinq ans, et l’expérience a été très positive. Camille sait parfaitement s’adapter aux enfants en se mettant à leur niveau. Son approche est à la fois ludique, bienveillante et efficace, ce qui permet aux enfants de participer avec plaisir. Un grand merci pour son professionnalisme et sa qualité d’accompagnement",
   },
+  {
+    name: "Guillaume Somont",
+    date: "Il y a 1 semaine",
+    text: "Suivis plus que personnalisé, très à l’écoute du projet et des programmes voulu. Très pro franchement allez y les yeux fermé 👍",
+  },
+  {
+    name: "Kenzo Ronteau",
+    date: "Il y a 4 jours",
+    text: "Camil est un coach attentif, intéressé et sérieux, je recommande à 100%!",
+  },
 ];
 
 export default function Home() {
   const [socialsOpen, setSocialsOpen] = useState(false);
 
+const reviewsRef = useRef<HTMLDivElement>(null);
+const reviewsPauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+const reviewsScrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+const [reviewsPaused, setReviewsPaused] = useState(false);
+
+const pauseReviewsTemporarily = useCallback(() => {
+  if (reviewsPauseTimeoutRef.current) {
+    clearTimeout(reviewsPauseTimeoutRef.current);
+  }
+
+  setReviewsPaused(true);
+
+  reviewsPauseTimeoutRef.current = setTimeout(() => {
+    setReviewsPaused(false);
+  }, 8000);
+}, []);
+
+const getReviewsMetrics = useCallback(() => {
+  const container = reviewsRef.current;
+  if (!container) return null;
+
+  const firstCard = container.querySelector("article") as HTMLElement | null;
+  if (!firstCard) return null;
+
+  const styles = window.getComputedStyle(container);
+  const rawGap = Number.parseFloat(styles.columnGap || styles.gap || "0");
+  const gap = Number.isNaN(rawGap) ? 0 : rawGap;
+
+  const cardWidth = firstCard.getBoundingClientRect().width || 320;
+  const step = cardWidth + gap;
+  const setWidth = googleReviews.length * step;
+
+  return { container, step, setWidth };
+}, []);
+
+const normalizeReviewsScroll = useCallback(() => {
+  const metrics = getReviewsMetrics();
+  if (!metrics) return;
+
+  const { container, setWidth } = metrics;
+
+  if (container.scrollLeft >= setWidth) {
+    container.scrollLeft = container.scrollLeft - setWidth;
+  }
+
+  if (container.scrollLeft < 0) {
+    container.scrollLeft = container.scrollLeft + setWidth;
+  }
+}, [getReviewsMetrics]);
+
+const moveReviews = useCallback(
+  (direction: 1 | -1) => {
+    const metrics = getReviewsMetrics();
+    if (!metrics) return;
+
+    const { container, step, setWidth } = metrics;
+
+    if (direction === 1 && container.scrollLeft >= setWidth - step) {
+      container.scrollLeft = container.scrollLeft - setWidth;
+    }
+
+    if (direction === -1 && container.scrollLeft <= 5) {
+      container.scrollLeft = container.scrollLeft + setWidth;
+    }
+
+    container.scrollBy({
+      left: direction * step,
+      behavior: "smooth",
+    });
+
+    if (reviewsScrollTimeoutRef.current) {
+      clearTimeout(reviewsScrollTimeoutRef.current);
+    }
+
+    reviewsScrollTimeoutRef.current = setTimeout(() => {
+      normalizeReviewsScroll();
+    }, 700);
+  },
+  [getReviewsMetrics, normalizeReviewsScroll]
+);
+
+const handleManualReviewMove = useCallback(
+  (direction: 1 | -1) => {
+    pauseReviewsTemporarily();
+    moveReviews(direction);
+  },
+  [pauseReviewsTemporarily, moveReviews]
+);
+
+useEffect(() => {
+  if (reviewsPaused) return;
+
+  const interval = setInterval(() => {
+    moveReviews(1);
+  }, 6500);
+
+  return () => clearInterval(interval);
+}, [reviewsPaused, moveReviews]);
+
+useEffect(() => {
+  return () => {
+    if (reviewsPauseTimeoutRef.current) {
+      clearTimeout(reviewsPauseTimeoutRef.current);
+    }
+
+    if (reviewsScrollTimeoutRef.current) {
+      clearTimeout(reviewsScrollTimeoutRef.current);
+    }
+  };
+}, []);
+
   return (
+    
     <main className="min-h-screen bg-[#0B0D0F] text-[#F5F1EA]">
 
 {/* Réseaux sociaux flottants */}
@@ -341,41 +453,58 @@ export default function Home() {
       <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-[#080D0F] to-transparent md:w-16" />
       <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-[#080D0F] to-transparent md:w-16" />
 
-      <motion.div
-  className="flex w-max items-start gap-5 lg:max-[1400px]:gap-4"
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{
-          duration: 70,
-          ease: "linear",
-          repeat: Infinity,
-        }}
-      >
-        {[...googleReviews, ...googleReviews].map((review, index) => (
-          <article
-            key={`${review.name}-${index}`}
-            className="w-[285px] shrink-0 rounded-3xl border border-[#1A2228] bg-[#0D1317] p-6 sm:w-[340px] md:max-lg:w-[280px] md:max-lg:p-5 lg:max-[1400px]:w-[285px] lg:max-[1400px]:p-5"
-          >
-            <div className="mb-4 text-sm tracking-[0.15em] text-[#D6A936]">
-              ★★★★★
-            </div>
+     {/* Flèches desktop / tablette */}
+<button
+  type="button"
+  aria-label="Avis précédent"
+  onClick={() => handleManualReviewMove(-1)}
+  className="absolute left-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#1A2228] bg-[#0B0D0F]/90 text-2xl text-[#F5F1EA] backdrop-blur transition hover:bg-[#4F6D8A] md:flex"
+>
+  ‹
+</button>
 
-            <p className="text-base leading-7 text-[#C7CED6]">
-              “{review.text}”
-            </p>
+<button
+  type="button"
+  aria-label="Avis suivant"
+  onClick={() => handleManualReviewMove(1)}
+  className="absolute right-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-[#1A2228] bg-[#0B0D0F]/90 text-2xl text-[#F5F1EA] backdrop-blur transition hover:bg-[#4F6D8A] md:flex"
+>
+  ›
+</button>
 
-            <div className="mt-6 border-t border-[#1A2228] pt-4">
-              <p className="font-semibold text-[#F5F1EA]">
-                {review.name}
-              </p>
+<div
+  ref={reviewsRef}
+  onMouseEnter={() => setReviewsPaused(true)}
+  onMouseLeave={() => setReviewsPaused(false)}
+  onTouchStart={pauseReviewsTemporarily}
+  className="flex snap-x snap-mandatory items-start gap-5 overflow-x-auto scroll-smooth pr-12 [-ms-overflow-style:none] [scrollbar-width:none] lg:max-[1400px]:gap-4 [&::-webkit-scrollbar]:hidden"
+>
+  {[...googleReviews, ...googleReviews, ...googleReviews, ...googleReviews, ...googleReviews].map((review, index) => (
+    <article
+      key={`${review.name}-${index}`}
+      className="w-[285px] shrink-0 snap-start rounded-3xl border border-[#1A2228] bg-[#0D1317] p-6 sm:w-[340px] md:max-lg:w-[280px] md:max-lg:p-5 lg:max-[1400px]:w-[285px] lg:max-[1400px]:p-5"
+    >
+      <div className="mb-4 text-sm tracking-[0.15em] text-[#D6A936]">
+        ★★★★★
+      </div>
 
-              <p className="mt-1 text-sm text-[#7E8B98]">
-                {review.date}
-              </p>
-            </div>
-          </article>
-        ))}
-      </motion.div>
-    </div>
+      <p className="text-base leading-7 text-[#C7CED6]">
+        “{review.text}”
+      </p>
+
+      <div className="mt-6 border-t border-[#1A2228] pt-4">
+        <p className="font-semibold text-[#F5F1EA]">
+          {review.name}
+        </p>
+
+        <p className="mt-1 text-sm text-[#7E8B98]">
+          {review.date}
+        </p>
+      </div>
+    </article>
+  ))}
+</div>
+</div>
   </div>
 </section>
 
