@@ -269,7 +269,7 @@ useEffect(() => {
           {/* Texte hero */}
           <div className="flex w-full flex-col justify-start pb-8 pt-4 min-[400px]:pt-8 lg:max-w-[65%] lg:pb-10 lg:pl-32 lg:pt-12">
             <p className="mb-6 mt-0 text-sm font-medium uppercase tracking-[0.18em] text-[#7E8B98] min-[400px]:mb-8 lg:-mt-24 lg:text-base lg:tracking-[0.22em]">
-              Coach sportif premium · Lyon
+              Coach sportif · Lyon
             </p>
 
           <h1
